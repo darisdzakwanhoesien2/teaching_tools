@@ -1,0 +1,46 @@
+{
+  "topic": "Thermal expansion, specific heat capacity, and internal energy",
+  "questions": [
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "11",
+      "topic": "Thermal expansion, specific heat capacity, and internal energy",
+      "syllabus_codes": [
+        "2.2.1.4"
+      ],
+      "question_summary": "Uses a temperature-time graph of two solid substances (X and Y) to determine and compare their melting points.",
+      "physical_concepts": [
+        "Heating curves",
+        "Melting points",
+        "Thermal energy"
+      ],
+      "variables_involved": [
+        "Temperature",
+        "Time"
+      ],
+      "reasoning_focus": "Interpreting heating curves to identify state transition temperatures.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "12",
+      "topic": "Thermal expansion, specific heat capacity, and internal energy",
+      "syllabus_codes": [
+        "2.2.1.2"
+      ],
+      "question_summary": "Identifies the correct definition of specific heat capacity by comparing the energy required to raise the temperature of unit masses of two different solids.",
+      "physical_concepts": [
+        "Specific heat capacity",
+        "Thermal energy",
+        "Mass"
+      ],
+      "variables_involved": [
+        "Energy",
+        "Temperature",
+        "Mass"
+      ],
+      "reasoning_focus": "Defining the physical significance of a higher specific heat capacity in terms of energy requirements.",
+      "calculation_required": false
+    }
+  ]
+}

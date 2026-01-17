@@ -1,0 +1,29 @@
+You are an educational content extraction system.
+
+TASK:
+Extract all questions related to:
+"Effects of pressure and temperature on particle motion."
+(Syllabus references: 2.1.2.2 – 2.1.2.8)
+
+Include questions involving:
+- Gas pressure explanation
+- Particle collisions with container walls
+- Effect of temperature on particle speed
+- Heating or cooling gases in fixed or changing volume
+- Qualitative or simple quantitative pressure relationships
+
+Exclude:
+- Absolute temperature scale conversions
+- Advanced gas law derivations
+- Wave or energy transfer topics
+
+Return structured JSON using this schema:
+[SCHEMA ABOVE]
+
+OUTPUT RULES:
+- Return ONLY valid JSON.
+- No markdown.
+- No commentary.
+
+INPUT DATA:
+<<<PASTE SOURCE TEXT HERE>>>

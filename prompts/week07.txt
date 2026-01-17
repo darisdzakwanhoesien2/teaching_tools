@@ -1,0 +1,29 @@
+You are an educational content extraction system.
+
+TASK:
+Extract all questions related to:
+"General wave properties and wave motion."
+(Syllabus references: 3.1.1 – 3.1.10)
+
+Include questions involving:
+- Wave speed, frequency, wavelength
+- Transverse and longitudinal waves
+- Amplitude and energy
+- Wave diagrams
+- Ripple tank experiments
+- Calculations using v = fλ
+
+Exclude:
+- Reflection, refraction, lenses
+- Thermal physics topics
+
+Return structured JSON using this schema:
+[SCHEMA ABOVE]
+
+OUTPUT RULES:
+- Return ONLY valid JSON.
+- No markdown.
+- No commentary.
+
+INPUT DATA:
+<<<PASTE SOURCE TEXT HERE>>>

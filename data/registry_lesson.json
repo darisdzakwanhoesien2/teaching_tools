@@ -1,0 +1,203 @@
+{
+  "students": {
+    "alice": {
+      "name": "Alice Tan",
+      "lessons": {
+        "week_7_waves": {
+          "title": "Properties of Waves",
+          "syllabus": "3.1.1–3.1.10",
+          "datasets": [
+            "wave_properties_20260117_101735.json"
+          ],
+          "created_at": "2026-01-17T12:10:00"
+        },
+        "week_8_reflection": {
+          "title": "Reflection of Light",
+          "syllabus": "3.2.1–3.2.4",
+          "datasets": [
+            "reflection_of_light_20260117_101522.json"
+          ],
+          "created_at": "2026-01-17T12:15:00"
+        }
+      }
+    },
+    "bob": {
+      "name": "Bob Lim",
+      "lessons": {
+        "week_7_waves": {
+          "title": "Wave Revision",
+          "syllabus": "3.1.1–3.1.10",
+          "datasets": [
+            "wave_properties_20260117_101735.json"
+          ],
+          "created_at": "2026-01-17T12:30:00"
+        }
+      }
+    },
+    "ashaz": {
+      "name": "Ashaz",
+      "grade": "Grade 9",
+      "school": "ACS Jakarta",
+      "academic_year": "2025–2026",
+      "term": "Quarter 3",
+      "lessons": {
+        "week_01_thermal_particle": {
+          "title": "Thermal Physics & Particle Model",
+          "week": 1,
+          "date_range": "Jan 5 – Jan 9, 2026",
+          "syllabus": "2.1.1.1 – 2.1.2.6",
+          "objectives": [
+            "Understand states of matter",
+            "Explain particle arrangement and motion",
+            "Apply particle model to physical changes"
+          ],
+          "assessments": [],
+          "practice_questions": [
+            "Describe the differences in the arrangement and motion of particles between a solid and a gas."
+          ],
+          "datasets": [
+            "pressure.json",
+            "thermal_physics.json",
+            "thermal_expansion.json",
+            "thermal.json"
+          ],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_02_pressure_temperature": {
+          "title": "Pressure & Temperature (Part 1)",
+          "week": 2,
+          "date_range": "Jan 12 – Jan 16, 2026",
+          "syllabus": "2.1.2.2 – 2.1.2.8",
+          "objectives": [
+            "Relate pressure to particle collision frequency",
+            "Explain temperature effects using kinetic theory",
+            "Interpret pressure changes at constant volume"
+          ],
+          "assessments": [
+            "Quiz 1 (Jan 13)"
+          ],
+          "practice_questions": [
+            "Explain why the pressure of a gas increases when its temperature is raised at constant volume using kinetic theory."
+          ],
+          "datasets": [
+            "gas_law.json"
+          ],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_03_gas_laws_temperature": {
+          "title": "Gas Laws & Temperature Scales",
+          "week": 3,
+          "date_range": "Jan 19 – Jan 23, 2026",
+          "syllabus": "2.1.3.1 – 2.1.3.3",
+          "objectives": [
+            "Apply Boyle’s Law and temperature relationships",
+            "Understand absolute temperature scale",
+            "Convert between Celsius and Kelvin"
+          ],
+          "assessments": [],
+          "practice_questions": [
+            "What is the value of absolute zero in degrees Celsius and what does it represent regarding particle motion?"
+          ],
+          "datasets": [],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_04_specific_heat_expansion": {
+          "title": "Specific Heat & Expansion",
+          "week": 4,
+          "date_range": "Jan 26 – Jan 30, 2026",
+          "syllabus": "2.2.1.1 – 2.2.1.4",
+          "objectives": [
+            "Define thermal expansion",
+            "Explain internal energy changes",
+            "Apply specific heat capacity concepts"
+          ],
+          "assessments": [
+            "Topical Test 1"
+          ],
+          "practice_questions": [
+            "Give one example of a disadvantage caused by thermal expansion of solids in everyday life.",
+            "Define specific heat capacity and state its standard unit."
+          ],
+          "datasets": [],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_05_energy_transfer": {
+          "title": "Energy Transfer Processes",
+          "week": 5,
+          "date_range": "Feb 2 – Feb 6, 2026",
+          "syllabus": "2.2.3.1 – 2.3.2.2",
+          "objectives": [
+            "Compare melting, boiling and evaporation",
+            "Explain conduction and convection",
+            "Relate particle motion to energy transfer"
+          ],
+          "assessments": [],
+          "practice_questions": [
+            "Explain why convection cannot occur in solid materials."
+          ],
+          "datasets": [
+            "energy_transfer.json"
+          ],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_06_radiation_consequences": {
+          "title": "Radiation & Thermal Consequences",
+          "week": 6,
+          "date_range": "Feb 9 – Feb 13, 2026",
+          "syllabus": "2.3.3.1 – 2.3.4.2",
+          "objectives": [
+            "Understand thermal radiation",
+            "Evaluate surface absorption and emission",
+            "Apply insulation concepts"
+          ],
+          "assessments": [
+            "Topical Test 2"
+          ],
+          "practice_questions": [
+            "Describe how surface color and texture affect emission and absorption of thermal radiation."
+          ],
+          "datasets": [],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_07_wave_properties": {
+          "title": "Properties of Waves",
+          "week": 7,
+          "date_range": "Feb 16 – Feb 20, 2026",
+          "syllabus": "3.1.1 – 3.1.10",
+          "objectives": [
+            "Define amplitude, frequency and wavelength",
+            "Apply wave equation v = fλ",
+            "Understand transverse and longitudinal motion"
+          ],
+          "assessments": [],
+          "practice_questions": [
+            "Define amplitude, frequency and wavelength in wave motion."
+          ],
+          "datasets": [
+            "wave_properties.json"
+          ],
+          "created_at": "2026-01-17T12:00:00"
+        },
+        "week_08_reflection_light": {
+          "title": "Reflection of Light",
+          "week": 8,
+          "date_range": "Feb 23 – Feb 27, 2026",
+          "syllabus": "3.2.1 – 3.2.4",
+          "objectives": [
+            "Apply laws of reflection",
+            "Draw ray diagrams for plane mirrors",
+            "Understand image characteristics"
+          ],
+          "assessments": [
+            "Quiz 2"
+          ],
+          "practice_questions": [
+            "State the law of reflection and describe how to draw a normal line in a ray diagram."
+          ],
+          "datasets": [],
+          "created_at": "2026-01-17T12:00:00"
+        }
+      }
+    }
+  }
+}

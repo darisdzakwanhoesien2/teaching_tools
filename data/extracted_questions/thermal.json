@@ -1,0 +1,49 @@
+{
+  "topic": "Thermal radiation and practical consequences of thermal energy transfer",
+  "questions": [
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "17",
+      "topic": "Thermal radiation and practical consequences of thermal energy transfer",
+      "syllabus_codes": ["2.3.3.1"],
+      "question_summary": "Identifies which surface type among dull black, shiny black, dull white, and shiny white emits thermal energy at the highest rate.",
+      "physical_concepts": ["Thermal Radiation", "Emission", "Surface Color and Texture"],
+      "variables_involved": ["Surface Texture", "Surface Color", "Emission Rate"],
+      "reasoning_focus": "Understanding that dull black surfaces are the most effective emitters of infrared radiation.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "16",
+      "topic": "Thermal radiation and practical consequences of thermal energy transfer",
+      "syllabus_codes": ["2.3.3.2"],
+      "question_summary": "Compares the rates of absorption and emission of thermal radiation between a black object and a white object at the same constant temperature.",
+      "physical_concepts": ["Thermal Radiation", "Absorption", "Emission", "Surface Color"],
+      "variables_involved": ["Surface Color", "Absorption Rate", "Emission Rate"],
+      "reasoning_focus": "Determining that black surfaces exhibit higher rates of both radiation absorption and emission compared to white surfaces.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_31.pdf",
+      "question_number": "5(a)",
+      "topic": "Thermal radiation and practical consequences of thermal energy transfer",
+      "syllabus_codes": ["2.3.3.1", "2.3.3.2"],
+      "question_summary": "Explains the temperature difference of air inside dull black and shiny white containers after exposure to infrared radiation from a Bunsen burner.",
+      "physical_concepts": ["Infrared Radiation", "Absorption", "Surface Color and Texture"],
+      "variables_involved": ["Temperature", "Surface Type", "Time"],
+      "reasoning_focus": "Relating surface color and texture to the effectiveness of thermal radiation absorption.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_51.pdf",
+      "question_number": "2(d)",
+      "topic": "Thermal radiation and practical consequences of thermal energy transfer",
+      "syllabus_codes": ["2.3.4.2"],
+      "question_summary": "Suggests practical methods to minimize thermal energy loss from a beaker during a water cooling experiment.",
+      "physical_concepts": ["Thermal Insulation", "Consequences of Energy Transfer"],
+      "variables_involved": ["Thermal Energy Loss", "Insulation Techniques"],
+      "reasoning_focus": "Identifying practical measures such as lids or insulation to reduce heat transfer to the environment.",
+      "calculation_required": false
+    }
+  ]
+}

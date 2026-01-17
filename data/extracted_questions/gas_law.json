@@ -1,0 +1,71 @@
+{
+  "topic": "Gas Laws & Temperature Scales",
+  "questions": [
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "12",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.1.1"],
+      "question_summary": "Identifies which property (flow, compressibility, shape, volume) of a substance remains constant during the transition from a liquid to a gas.",
+      "physical_concepts": ["States of Matter", "Gas Properties"],
+      "variables_involved": ["Volume", "Shape", "Compressibility"],
+      "reasoning_focus": "Recognizing macroscopic properties of gases compared to liquids.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "13",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.2.1"],
+      "question_summary": "Explains why iron is difficult to compress while oxygen is easy to compress at room temperature using particle theory.",
+      "physical_concepts": ["Compressibility", "Kinetic Theory", "Particle Spacing"],
+      "variables_involved": ["Pressure", "Particle Separation"],
+      "reasoning_focus": "Correlating ease of compression with the distance between particles in different states of matter.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "14",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.2.6", "2.1.3.1"],
+      "question_summary": "Explains the decrease in gas pressure within a syringe when the volume is increased at a constant temperature.",
+      "physical_concepts": ["Boyle's Law", "Collision Frequency", "Kinetic Theory"],
+      "variables_involved": ["Pressure", "Volume", "Temperature"],
+      "reasoning_focus": "Relating increased volume to a decrease in the frequency of particle collisions with the container walls.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "10",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.2.2", "2.1.2.4"],
+      "question_summary": "Compares the separation and speed of particles in a hot gas versus a cool liquid while at the same pressure.",
+      "physical_concepts": ["Kinetic Theory", "Particle Speed", "Intermolecular Separation"],
+      "variables_involved": ["Temperature", "Particle Motion"],
+      "reasoning_focus": "Understanding how temperature and physical state affect particle distance and velocity.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "11",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.3.1"],
+      "question_summary": "Requires calculating the final pressure of a fixed mass of gas that expands from 1.2 cubic meters to 1.8 cubic meters at constant temperature.",
+      "physical_concepts": ["Boyle's Law", "Pressure-Volume Relationship"],
+      "variables_involved": ["Pressure", "Volume", "Temperature"],
+      "reasoning_focus": "Applying the mathematical relationship p1V1 = p2V2 to determine pressure changes.",
+      "calculation_required": true
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "14",
+      "topic": "Gas Laws & Temperature Scales",
+      "syllabus_codes": ["2.1.3.2", "2.1.2.5"],
+      "question_summary": "Explains the increase in pressure of a gas in a sealed container when heat is applied.",
+      "physical_concepts": ["Kinetic Theory", "Gas Pressure", "Impact Force"],
+      "variables_involved": ["Pressure", "Temperature"],
+      "reasoning_focus": "Identifying that increased thermal energy results in greater forces exerted by particles striking container walls.",
+      "calculation_required": false
+    }
+  ]
+}

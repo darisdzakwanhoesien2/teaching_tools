@@ -1,0 +1,182 @@
+{
+  "topic": "Energy transfer by melting, boiling, evaporation, conduction, and convection",
+  "questions": [
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "11",
+      "topic": "Melting and Phase Changes",
+      "syllabus_codes": [
+        "2.2.3.1"
+      ],
+      "question_summary": "Analyzes a temperature-time graph for two different solid substances to compare their melting points during a heating process.",
+      "physical_concepts": [
+        "Melting Point",
+        "Phase Change",
+        "Thermal Energy"
+      ],
+      "variables_involved": [
+        "Temperature",
+        "Time"
+      ],
+      "reasoning_focus": "Interpreting horizontal sections of a heating curve as phase transition points (melting).",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "15",
+      "topic": "Evaporation",
+      "syllabus_codes": [
+        "2.2.3.5",
+        "2.2.3.6"
+      ],
+      "question_summary": "Describes the process of evaporation as the mechanism where more-energetic molecules escape from the surface of a liquid.",
+      "physical_concepts": [
+        "Evaporation",
+        "Particle Model",
+        "Kinetic Energy"
+      ],
+      "variables_involved": [
+        "Molecular Energy"
+      ],
+      "reasoning_focus": "Identifying the energy-based particle behavior that causes cooling and state change at a liquid surface.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "16",
+      "topic": "Thermal Conduction",
+      "syllabus_codes": [
+        "2.3.1.1",
+        "2.3.1.2"
+      ],
+      "question_summary": "Evaluates an experiment using wax and pins on rods to compare the rate of thermal conduction across different materials.",
+      "physical_concepts": [
+        "Conduction",
+        "Thermal Conductivity"
+      ],
+      "variables_involved": [
+        "Time",
+        "Material Type"
+      ],
+      "reasoning_focus": "Determining the relative conductivity of materials based on the speed of thermal energy transfer.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "12",
+      "topic": "Latent Heat and Specific Heat",
+      "syllabus_codes": [
+        "2.2.1.2",
+        "2.2.3.1"
+      ],
+      "question_summary": "Requires distinguishing between specific heat capacity (raising temperature) and the energy required to melt a unit mass.",
+      "physical_concepts": [
+        "Specific Heat Capacity",
+        "Latent Heat of Fusion",
+        "Melting"
+      ],
+      "variables_involved": [
+        "Energy",
+        "Mass",
+        "Temperature"
+      ],
+      "reasoning_focus": "Defining the physical significance of thermal constants related to temperature change vs. phase change.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "13",
+      "topic": "Evaporation",
+      "syllabus_codes": [
+        "2.2.3.5"
+      ],
+      "question_summary": "Identifies the specific particle types (individual molecules) that escape from a water surface during the evaporation process.",
+      "physical_concepts": [
+        "Evaporation",
+        "Molecular Motion"
+      ],
+      "variables_involved": [
+        "Molecules"
+      ],
+      "reasoning_focus": "Understanding the scale and type of particles involved in liquid-to-gas phase transitions.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "15",
+      "topic": "Thermal Conduction",
+      "syllabus_codes": [
+        "2.3.1.1"
+      ],
+      "question_summary": "Uses a practical example of copper and wooden rods in ice to explain how different conduction rates affect temperature perception.",
+      "physical_concepts": [
+        "Conduction",
+        "Thermal Conductivity",
+        "Material Properties"
+      ],
+      "variables_involved": [
+        "Material (Copper vs Wood)"
+      ],
+      "reasoning_focus": "Relating the feel of a material to its ability to transfer thermal energy away from or to an object.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_31.pdf",
+      "question_number": "5(b)",
+      "topic": "Thermal Conduction",
+      "syllabus_codes": [
+        "2.3.1.1",
+        "2.3.1.3"
+      ],
+      "question_summary": "Prompts a description of an experimental setup to compare the thermal conductivity of various metals and glass.",
+      "physical_concepts": [
+        "Conduction",
+        "Experimental Design"
+      ],
+      "variables_involved": [
+        "Material (Brass, Copper, Iron, Steel, Glass)"
+      ],
+      "reasoning_focus": "Designing a fair test to measure heat transfer rates through solids.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_41.pdf",
+      "question_number": "4(a)",
+      "topic": "Convection",
+      "syllabus_codes": [
+        "2.3.2.1",
+        "2.3.2.2"
+      ],
+      "question_summary": "Asks for the identification of convection as a heat transfer method and an explanation of how convection currents warm the air in a room.",
+      "physical_concepts": [
+        "Convection",
+        "Convection Currents",
+        "Fluid Density"
+      ],
+      "variables_involved": [
+        "Temperature",
+        "Air Density"
+      ],
+      "reasoning_focus": "Explaining how changes in air density lead to the circulation of thermal energy.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_51.pdf",
+      "question_number": "2(d)",
+      "topic": "Consequences of Thermal Energy Transfer",
+      "syllabus_codes": [
+        "2.3.4.1"
+      ],
+      "question_summary": "Requires suggestions for minimizing thermal energy loss from a beaker during a cooling investigation.",
+      "physical_concepts": [
+        "Insulation",
+        "Heat Transfer Reduction"
+      ],
+      "variables_involved": [
+        "Thermal Energy"
+      ],
+      "reasoning_focus": "Applying knowledge of conduction and evaporation to practical laboratory scenarios to reduce heat loss.",
+      "calculation_required": false
+    }
+  ]
+}

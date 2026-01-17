@@ -1,0 +1,29 @@
+You are an educational content extraction system.
+
+TASK:
+Extract all questions related to:
+"Thermal Physics and the Particle Model – states of matter, particle arrangement, motion, forces between particles, and basic thermal behavior."
+(Syllabus references: 2.1.1.1 – 2.1.2.6)
+
+Include questions involving:
+- Solid, liquid, gas particle arrangement
+- Particle spacing and motion
+- Changes of state (melting, freezing, boiling)
+- Simple particle model explanations
+- Energy and temperature effects on particles
+
+Exclude:
+- Gas laws calculations
+- Radiation, conduction, convection
+- Wave or optics topics
+
+Return structured JSON using this schema:
+[SCHEMA ABOVE]
+
+OUTPUT RULES:
+- Return ONLY valid JSON.
+- No markdown.
+- No commentary.
+
+INPUT DATA:
+<<<PASTE SOURCE TEXT HERE>>>

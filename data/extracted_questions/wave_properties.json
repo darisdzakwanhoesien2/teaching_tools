@@ -1,0 +1,147 @@
+{
+  "topic": "General wave properties and wave motion",
+  "questions": [
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "18",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.9"
+      ],
+      "question_summary": "Calculate the wavelength of a water wave given its speed and the number of waves passing a point over a specific time interval.",
+      "physical_concepts": [
+        "Wave speed",
+        "Frequency",
+        "Wavelength"
+      ],
+      "variables_involved": [
+        "Speed",
+        "Time",
+        "Wave count",
+        "Wavelength"
+      ],
+      "reasoning_focus": "Applying the wave equation v = fλ by first determining frequency from the given wave count and time.",
+      "calculation_required": true
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "19",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.2"
+      ],
+      "question_summary": "Identify the correct description of vibrations in a transverse wave and select a valid example of such a wave.",
+      "physical_concepts": [
+        "Transverse waves",
+        "Vibration direction"
+      ],
+      "variables_involved": [
+        "Wave direction",
+        "Vibration orientation"
+      ],
+      "reasoning_focus": "Distinguishing between parallel and perpendicular vibrations relative to the direction of energy travel.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_11.pdf",
+      "question_number": "20",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.4",
+        "3.1.6"
+      ],
+      "question_summary": "Label a diagram showing circular waves on the surface of water with the correct terms for wavefront and wavelength.",
+      "physical_concepts": [
+        "Wavefronts",
+        "Wavelength",
+        "Wave diagrams"
+      ],
+      "variables_involved": [
+        "Distance between peaks",
+        "Line representing a crest"
+      ],
+      "reasoning_focus": "Identifying physical features of a wave on a visual representation of a disturbed surface.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_21.pdf",
+      "question_number": "17",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.2"
+      ],
+      "question_summary": "Determine the direction of movement of a floating object (cork) when transverse water waves pass through its position.",
+      "physical_concepts": [
+        "Transverse waves",
+        "Particle motion"
+      ],
+      "variables_involved": [
+        "Wave direction",
+        "Object displacement"
+      ],
+      "reasoning_focus": "Understanding that in transverse waves, the medium (or floating objects) moves perpendicular to the direction of wave travel.",
+      "calculation_required": false
+    },
+    {
+      "filename": "0972_s25_qp_31.pdf",
+      "question_number": "7(a)",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.4",
+        "3.1.5"
+      ],
+      "question_summary": "Determine the amplitude and frequency of a transverse wave using a displacement-time graph.",
+      "physical_concepts": [
+        "Amplitude",
+        "Frequency",
+        "Period"
+      ],
+      "variables_involved": [
+        "Displacement",
+        "Time"
+      ],
+      "reasoning_focus": "Reading maximum displacement from a graph and calculating frequency as the reciprocal of the period.",
+      "calculation_required": true
+    },
+    {
+      "filename": "0972_s25_qp_31.pdf",
+      "question_number": "7(b)(ii)",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.9"
+      ],
+      "question_summary": "Calculate the frequency of light given its speed and its wavelength.",
+      "physical_concepts": [
+        "Wave equation",
+        "Electromagnetic wave speed"
+      ],
+      "variables_involved": [
+        "Speed (v)",
+        "Wavelength (λ)",
+        "Frequency (f)"
+      ],
+      "reasoning_focus": "Applying the mathematical relationship v = fλ to electromagnetic waves.",
+      "calculation_required": true
+    },
+    {
+      "filename": "0972_s25_qp_41.pdf",
+      "question_number": "5(c)(ii)",
+      "topic": "General wave properties and wave motion",
+      "syllabus_codes": [
+        "3.1.9"
+      ],
+      "question_summary": "Calculate the frequency of monochromatic red light given its wavelength in air and the speed of light.",
+      "physical_concepts": [
+        "Frequency",
+        "Wave equation"
+      ],
+      "variables_involved": [
+        "Wavelength",
+        "Speed of light",
+        "Frequency"
+      ],
+      "reasoning_focus": "Applying the wave equation to find frequency for a specific color of light.",
+      "calculation_required": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+You are an educational content extraction system.
+
+TASK:
+Extract all questions related to:
+"Thermal radiation and practical consequences of thermal energy transfer."
+(Syllabus references: 2.3.3.1 – 2.3.4.2)
+
+Include questions involving:
+- Infrared radiation
+- Emission and absorption of radiation
+- Surface color and texture effects
+- Greenhouse effect
+- Insulation effectiveness
+- Energy efficiency
+
+Exclude:
+- Conduction and convection unless directly linked to radiation
+- Gas laws
+- Light reflection/refraction topics
+
+Return structured JSON using this schema:
+[SCHEMA ABOVE]
+
+OUTPUT RULES:
+- Return ONLY valid JSON.
+- No markdown.
+- No commentary.
+
+INPUT DATA:
+<<<PASTE SOURCE TEXT HERE>>>
