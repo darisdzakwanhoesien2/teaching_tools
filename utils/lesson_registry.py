@@ -1,21 +1,31 @@
 import json
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 LESSON_REGISTRY_PATH = Path("data/registry_lesson.json")
 LESSON_REGISTRY_PATH.parent.mkdir(exist_ok=True)
 
 
-# -------------------------------------
-# Core Load / Save
-# -------------------------------------
+def _empty_registry():
+    return {"students": {}}
+
 
 def load_lesson_registry():
-    if LESSON_REGISTRY_PATH.exists():
-        with open(LESSON_REGISTRY_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
+    if not LESSON_REGISTRY_PATH.exists():
+        return _empty_registry()
 
-    return {"students": {}}
+    try:
+        with open(LESSON_REGISTRY_PATH, "r", encoding="utf-8") as f:
+            registry = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return _empty_registry()
+
+    if not isinstance(registry, dict):
+        return _empty_registry()
+
+    students = registry.get("students", {})
+    registry["students"] = students if isinstance(students, dict) else {}
+    return registry
 
 
 def save_lesson_registry(registry: dict):
@@ -23,21 +33,11 @@ def save_lesson_registry(registry: dict):
         json.dump(registry, f, indent=2, ensure_ascii=False)
 
 
-# -------------------------------------
-# Student Management
-# -------------------------------------
-
 def ensure_student(registry, student_id: str, name: str):
-    if student_id not in registry["students"]:
-        registry["students"][student_id] = {
-            "name": name,
-            "lessons": {}
-        }
+    students = registry.setdefault("students", {})
+    if student_id not in students:
+        students[student_id] = {"name": name, "lessons": {}}
 
-
-# -------------------------------------
-# Lesson Management
-# -------------------------------------
 
 def add_lesson(
     student_id: str,
@@ -45,7 +45,7 @@ def add_lesson(
     lesson_id: str,
     title: str,
     syllabus: str,
-    dataset_filename: str
+    dataset_filename: str,
 ):
     registry = load_lesson_registry()
     ensure_student(registry, student_id, student_name)
@@ -57,7 +57,7 @@ def add_lesson(
             "title": title,
             "syllabus": syllabus,
             "datasets": [],
-            "created_at": datetime.now().isoformat(timespec="seconds")
+            "created_at": datetime.now().isoformat(timespec="seconds"),
         }
 
     if dataset_filename not in lessons[lesson_id]["datasets"]:
@@ -66,10 +66,6 @@ def add_lesson(
     save_lesson_registry(registry)
     return registry
 
-
-# -------------------------------------
-# Query Helpers
-# -------------------------------------
 
 def list_students():
     registry = load_lesson_registry()

@@ -1,147 +1,93 @@
-import streamlit as st
-import pandas as pd
 from pathlib import Path
-import json
+
+import pandas as pd
+import streamlit as st
 
 from utils.storage import load_dataset
 
 
-# =========================================================
-# PAGE CONFIG
-# =========================================================
-
 st.set_page_config(
     page_title="📘 Question Explorer",
-    layout="wide"
+    layout="wide",
 )
 
 st.title("📘 Extracted Questions Explorer")
 st.caption("Browse, filter, and analyze extracted question datasets")
 
-# =========================================================
-# DATASET DISCOVERY
-# =========================================================
-
 DATASET_DIR = Path("data/extracted_questions")
-dataset_files = sorted([p.name for p in DATASET_DIR.glob("*.json")])
 
+def as_list(value):
+    return value if isinstance(value, list) else []
+
+
+def codes_from_row(value):
+    return [code for code in as_list(value) if code]
+
+
+dataset_files = sorted(p.name for p in DATASET_DIR.glob("*.json"))
 if not dataset_files:
     st.error("No datasets found in data/extracted_questions/")
     st.stop()
 
-# =========================================================
-# DATASET SELECTION
-# =========================================================
-
-selected_file = st.selectbox(
-    "Select Dataset",
-    dataset_files
-)
-
+selected_file = st.selectbox("Select Dataset", dataset_files)
 dataset = load_dataset(selected_file)
-
 if not dataset:
     st.error("Failed to load dataset.")
     st.stop()
 
-questions = dataset.get("questions", [])
-
+questions = as_list(dataset.get("questions"))
 df = pd.DataFrame(questions)
 
-# =========================================================
-# DATASET HEADER
-# =========================================================
-
 st.subheader("📦 Dataset Overview")
-
 header_cols = st.columns(4)
-
 header_cols[0].metric("Topic", dataset.get("topic", "—"))
 header_cols[1].metric("Questions", len(questions))
-header_cols[2].metric("Unique Files", df["filename"].nunique())
-header_cols[3].metric("Calculation Qs", df["calculation_required"].sum())
-
-# =========================================================
-# FILTER CONTROLS
-# =========================================================
+header_cols[2].metric("Unique Files", df["filename"].nunique() if "filename" in df else 0)
+header_cols[3].metric(
+    "Calculation Qs",
+    int(df["calculation_required"].sum()) if "calculation_required" in df else 0,
+)
 
 st.divider()
 st.subheader("🔎 Filters")
-
 col1, col2, col3, col4 = st.columns(4)
 
-# Filename filter
 with col1:
-    filenames = sorted(df["filename"].dropna().unique().tolist())
-    selected_files = st.multiselect(
-        "Filter by Source File",
-        filenames,
-        default=filenames
-    )
+    filenames = sorted(df["filename"].dropna().unique().tolist()) if "filename" in df else []
+    selected_files = st.multiselect("Filter by Source File", filenames, default=filenames)
 
-# Syllabus filter
 with col2:
-    syllabus_flat = sorted(
-        {code for codes in df["syllabus_codes"] for code in codes}
-    )
-    selected_syllabus = st.multiselect(
-        "Filter by Syllabus Code",
-        syllabus_flat,
-        default=syllabus_flat
-    )
+    # Flatten nested syllabus lists so the filter works on individual codes.
+    if "syllabus_codes" in df and not df.empty:
+        syllabus_flat = sorted({code for codes in df["syllabus_codes"] for code in as_list(codes)})
+    else:
+        syllabus_flat = []
+    selected_syllabus = st.multiselect("Filter by Syllabus Code", syllabus_flat, default=syllabus_flat)
 
-# Calculation filter
 with col3:
-    calc_filter = st.radio(
-        "Calculation Required",
-        ["All", "Yes", "No"],
-        horizontal=True
-    )
+    calc_filter = st.radio("Calculation Required", ["All", "Yes", "No"], horizontal=True)
 
-# Keyword search
 with col4:
-    keyword = st.text_input(
-        "Search keyword",
-        placeholder="e.g. radiation, mirror, wave"
-    )
-
-# =========================================================
-# APPLY FILTERS
-# =========================================================
+    keyword = st.text_input("Search keyword", placeholder="e.g. radiation, mirror, wave")
 
 filtered_df = df.copy()
 
-# File filter
-filtered_df = filtered_df[
-    filtered_df["filename"].isin(selected_files)
-]
+if not filtered_df.empty and "filename" in filtered_df:
+    filtered_df = filtered_df[filtered_df["filename"].isin(selected_files)]
 
-# Syllabus filter
-filtered_df = filtered_df[
-    filtered_df["syllabus_codes"].apply(
-        lambda codes: any(c in selected_syllabus for c in codes)
-    )
-]
-
-# Calculation filter
-if calc_filter == "Yes":
-    filtered_df = filtered_df[filtered_df["calculation_required"] == True]
-elif calc_filter == "No":
-    filtered_df = filtered_df[filtered_df["calculation_required"] == False]
-
-# Keyword filter
-if keyword.strip():
-    keyword_lower = keyword.lower()
+if not filtered_df.empty and "syllabus_codes" in filtered_df:
     filtered_df = filtered_df[
-        filtered_df.apply(
-            lambda row: keyword_lower in str(row).lower(),
-            axis=1
-        )
+        filtered_df["syllabus_codes"].apply(lambda value: any(code in selected_syllabus for code in as_list(value)))
     ]
 
-# =========================================================
-# TABLE VIEW
-# =========================================================
+if calc_filter == "Yes" and "calculation_required" in filtered_df:
+    filtered_df = filtered_df[filtered_df["calculation_required"] == True]
+elif calc_filter == "No" and "calculation_required" in filtered_df:
+    filtered_df = filtered_df[filtered_df["calculation_required"] == False]
+
+if keyword.strip():
+    keyword_lower = keyword.lower()
+    filtered_df = filtered_df[filtered_df.apply(lambda row: keyword_lower in str(row).lower(), axis=1)]
 
 st.divider()
 st.subheader(f"📋 Questions ({len(filtered_df)})")
@@ -149,22 +95,19 @@ st.subheader(f"📋 Questions ({len(filtered_df)})")
 if filtered_df.empty:
     st.warning("No questions match the filters.")
 else:
+    # Reindex keeps the table stable even if a field is absent in older files.
     st.dataframe(
-        filtered_df[
-            [
+        filtered_df.reindex(
+            columns=[
                 "filename",
                 "question_number",
                 "question_summary",
                 "syllabus_codes",
-                "calculation_required"
+                "calculation_required",
             ]
-        ],
-        use_container_width=True
+        ),
+        use_container_width=True,
     )
-
-# =========================================================
-# QUESTION DETAIL VIEW
-# =========================================================
 
 st.divider()
 st.subheader("🔍 Question Details")
@@ -172,66 +115,60 @@ st.subheader("🔍 Question Details")
 if filtered_df.empty:
     st.info("No questions to display.")
 else:
-    for idx, row in filtered_df.iterrows():
+    for _, row in filtered_df.iterrows():
         label = f"{row['filename']} — Q{row['question_number']}"
         with st.expander(label):
-
             meta_cols = st.columns(3)
-
-            meta_cols[0].metric("Calculation", "Yes" if row["calculation_required"] else "No")
-            meta_cols[1].metric("Syllabus Codes", ", ".join(row["syllabus_codes"]))
-            meta_cols[2].metric("Source File", row["filename"])
+            meta_cols[0].metric("Calculation", "Yes" if row.get("calculation_required") else "No")
+            meta_cols[1].metric("Syllabus Codes", ", ".join(as_list(row.get("syllabus_codes"))))
+            meta_cols[2].metric("Source File", row.get("filename", "—"))
 
             st.markdown("### 🧾 Summary")
-            st.write(row["question_summary"])
+            st.write(row.get("question_summary", "—"))
 
             st.markdown("### 🧠 Physical Concepts")
-            for c in row["physical_concepts"]:
-                st.write("•", c)
+            for concept in as_list(row["physical_concepts"]):
+                st.write("•", concept)
 
             st.markdown("### 📊 Variables Involved")
-            for v in row["variables_involved"]:
-                st.write("•", v)
+            for variable in as_list(row["variables_involved"]):
+                st.write("•", variable)
 
             st.markdown("### 🎯 Reasoning Focus")
-            st.write(row["reasoning_focus"])
-
-# =========================================================
-# ANALYTICS
-# =========================================================
+            st.write(row.get("reasoning_focus", "—"))
 
 st.divider()
 st.subheader("📊 Dataset Analytics")
 
-colA, colB = st.columns(2)
+col_a, col_b = st.columns(2)
 
-# Syllabus distribution
-with colA:
-    syllabus_counts = (
-        df.explode("syllabus_codes")
-        ["syllabus_codes"]
-        .value_counts()
-        .reset_index()
-        .rename(columns={"index": "Syllabus", "syllabus_codes": "Count"})
-    )
+with col_a:
+    if "syllabus_codes" in df and not df.empty:
+        syllabus_counts = (
+            df.explode("syllabus_codes")["syllabus_codes"]
+            .dropna()
+            .value_counts()
+            .reset_index()
+            .rename(columns={"index": "Syllabus", "syllabus_codes": "Count"})
+        )
+    else:
+        syllabus_counts = pd.DataFrame(columns=["Syllabus", "Count"])
     st.write("### 📚 Syllabus Coverage")
     st.dataframe(syllabus_counts, use_container_width=True)
 
-# Physical concept distribution
-with colB:
-    concept_counts = (
-        df.explode("physical_concepts")
-        ["physical_concepts"]
-        .value_counts()
-        .reset_index()
-        .rename(columns={"index": "Concept", "physical_concepts": "Count"})
-    )
+with col_b:
+    if "physical_concepts" in df and not df.empty:
+        concept_counts = (
+            df.explode("physical_concepts")["physical_concepts"]
+            .dropna()
+            .value_counts()
+            .reset_index()
+            .rename(columns={"index": "Concept", "physical_concepts": "Count"})
+        )
+    else:
+        concept_counts = pd.DataFrame(columns=["Concept", "Count"])
     st.write("### 🧠 Physical Concept Frequency")
     st.dataframe(concept_counts, use_container_width=True)
-
-# =========================================================
-# RAW JSON VIEW
-# =========================================================
 
 st.divider()
 with st.expander("📂 View Raw Dataset JSON"):

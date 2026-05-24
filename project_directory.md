@@ -1,6 +1,6 @@
 # 📦 Project Directory Structure
 
-**Root:** `/Users/darisdzakwanhoesien/Documents/project_documentation/codebase/teaching_tools`
+**Root:** `/home/ubuntu/apps/fixing_repo/teaching_tools`
 
   📄 README.md<br>
   📄 app.py<br>
@@ -18,8 +18,11 @@
     📄 registry.json<br>
     📄 registry_lesson.json<br>
 </details>
+  📄 notes.md<br>
 <details><summary>📁 pages/</summary>
     📄 01_Student.py<br>
+    📄 02_Question.py<br>
+    📄 03_Question_Combined.py<br>
 </details>
   📄 project_directory.md<br>
 <details><summary>📁 prompts/</summary>
@@ -32,7 +35,9 @@
     📄 week07.txt<br>
     📄 week08.txt<br>
 </details>
+  📄 requirements.txt<br>
   📄 structure_code.py<br>
+  📄 structure_code_lesson_teaching.py<br>
 <details><summary>📁 utils/</summary>
     📄 json_validator.py<br>
     📄 lesson_registry.py<br>
