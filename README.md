@@ -1,138 +1,114 @@
-# Curriculum Question Extractor
+# Teaching Tools
 
-Legacy notes from the earlier draft are archived in `notes.md`.
+Streamlit-based tooling for:
+- Curriculum question extraction from OCR/PDF text into validated JSON datasets
+- Test question table parsing (Markdown/CSV/TSV) into reusable saved datasets
+- Local dataset browsing and analytics
+- HTTP API access to existing datasets
 
-## Project Overview
-A Streamlit app for turning OCR/PDF text into validated curriculum-question JSON, saving it as datasets, and browsing those datasets later.
+## Features
 
-## Tech Stack
-- Python
-- Streamlit
-- pandas
-- JSON file storage
-- Local filesystem registry
+- Prompt-driven extraction workflow (`app.py`)
+- Schema validation and JSON dataset registry (`data/registry.json`)
+- Single and combined question explorers (`pages/02_Question.py`, `pages/03_Question_Combined.py`)
+- Integrated test question parser (migrated from `_temp`) (`pages/04_Test_Question_Parser.py`)
+- Saved result manifest + CSV storage (`data/saved_results/manifest.json`)
+- FastAPI endpoints for existing extracted datasets and saved results (`api/main.py`)
 
-## Architecture Overview
-- `app.py`: main extraction and dataset-registry UI
-- `pages/01_Student.py`: student/lesson dashboard
-- `pages/02_Question.py`: single-dataset explorer
-- `pages/03_Question_Combined.py`: combined dataset explorer
-- `utils/prompt_loader.py`: loads prompt text from `prompts/`
-- `utils/json_validator.py`: checks output schema
-- `utils/storage.py`: saves datasets and registry entries
-- `utils/lesson_registry.py`: lesson/student registry
-- `data/`: saved JSON datasets and registries
+## Project Structure
 
-## Installation & Setup
-1. Create a virtual environment.
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Run the app:
-   ```bash
-   streamlit run app.py
-   ```
+- `app.py`: Main Curriculum Question Extractor UI
+- `pages/01_Student.py`: Student and lesson dashboard
+- `pages/02_Question.py`: Per-dataset question explorer
+- `pages/03_Question_Combined.py`: Unified multi-dataset explorer
+- `pages/04_Test_Question_Parser.py`: Test question parser and saved-results manager
+- `api/main.py`: HTTP API for datasets and saved results
+- `utils/storage.py`: Extracted dataset persistence and registry utilities
+- `utils/json_validator.py`: JSON schema validator for extracted question datasets
+- `utils/saved_results.py`: Parser + saved-results storage/manifests for table-based datasets
+- `prompts/`: Prompt templates
+- `data/extracted_questions/`: Saved extracted JSON datasets
+- `data/saved_results/`: Saved CSV datasets and manifest
 
-## Usage Guide
-1. Pick a prompt from the sidebar.
-2. Paste OCR or PDF text.
-3. Paste model JSON output.
-4. Click `Validate`.
-5. Preview or save the dataset.
-6. Browse saved datasets in the registry table.
-7. Open the Streamlit pages for student and question views.
+## Installation
 
-## API Reference
-No external HTTP API. Internal helpers:
-- `save_dataset(data)`
-- `load_registry()`
-- `load_dataset(filename)`
-- `validate_schema(data)`
+```bash
+pip install -r requirements.txt
+```
 
-## Environment Variables
-None required.
+## Run Streamlit App
 
-## Contributing Guide
-- Keep JSON schemas stable.
-- Add new prompts under `prompts/`.
-- Update validators before changing the saved question shape.
-- Run `python3 -m py_compile ...` before opening a PR.
+```bash
+streamlit run app.py
+```
 
-## License
-No license file is present yet.
+Then use page navigation in Streamlit sidebar to access:
+- `01_Student`
+- `02_Question`
+- `03_Question_Combined`
+- `04_Test_Question_Parser`
 
-## Scaling Guide
-### Current Bottlenecks
-- Flat JSON files will be the first bottleneck.
-- Local disk writes will not scale cleanly.
-- Streamlit is single-app, synchronous UI logic.
-- Large registries will become slow to filter in-memory.
+## Run API Server
 
-### Database Scaling
-- Move `registry.json` to PostgreSQL.
-- Add indexes on `topic`, `filename`, `created_at`, and lesson/student IDs.
-- Cache hot registry queries in Redis.
-- Use read replicas for heavy browse traffic.
-- Shard only after a real multi-tenant or very large dataset need.
+```bash
+uvicorn api.main:app --reload --port 8000
+```
 
-### Backend Scaling
-- Keep Streamlit for the UI, but move ingestion to an API worker.
-- Use horizontal scaling behind a load balancer.
-- Prefer stateless workers over vertical-only scaling.
-- Offload validation and file writes to a queue.
+Base URL: `http://127.0.0.1:8000`
 
-### Frontend Scaling
-- Put static assets behind a CDN.
-- Lazy-load large dataset views.
-- Consider SSR/SSG only if you rebuild the UI outside Streamlit.
-- Paginate tables early.
+## API Endpoints
 
-### Infrastructure
-- AWS: CloudFront, S3, ECS Fargate or App Runner, RDS Postgres, ElastiCache Redis, ALB, CloudWatch.
-- GCP: Cloud Run, Cloud SQL, Cloud Storage, Cloud CDN, Memorystore.
-- Azure: Container Apps or App Service, Azure Database for PostgreSQL, Blob Storage, Front Door, Azure Cache for Redis.
+- `GET /health`
+  - Health check
 
-### Cost Estimate
-Excluding LLM/API usage:
-- 1k users: about $50 to $200/month
-- 10k users: about $300 to $1,000/month
-- 100k users: about $1,500 to $8,000/month
+- `GET /datasets/registry`
+  - Full extracted dataset registry
 
-### Roadmap
-1. Replace JSON registry with PostgreSQL.
-2. Move dataset files to object storage.
-3. Add background jobs for validation and ingestion.
-4. Add auth, roles, and audit logs.
-5. Add caching and CDN.
-6. Split browse and write paths.
-7. Add observability and autoscaling.
-8. Add search, analytics, and exports.
+- `GET /datasets`
+  - List extracted dataset metadata entries
 
-## Similar Apps / Companies
-| Product | What it does | Tech stack | Business model | Scale | Why it wins |
-|---|---|---|---|---|---|
-| Quizlet | Flashcards, practice, study sets | Not publicly disclosed | Freemium + paid plans | Large consumer scale | Huge UGC library and simple study loops |
-| Kahoot! | Live quizzes and learning games | Not publicly disclosed | Freemium + premium plans | Global, billions of participants | Viral game loop and broad use cases |
-| Quizizz | Interactive quizzes, lessons, AI creation | Not publicly disclosed | Freemium + school/enterprise plans | Large K-12 adoption | Easy authoring and classroom pacing |
-| IXL | Adaptive practice and curriculum drills | Not publicly disclosed | Subscription | 18M+ students | Strong personalization and analytics |
-| Nearpod | Interactive lessons and formative checks | Not publicly disclosed | Freemium + school/district licensing | Used across many U.S. districts | Teacher workflow + district sales |
-| Edpuzzle | Video lessons with embedded questions | Not publicly disclosed | Freemium + paid school plans | Millions of teachers | Simple video-to-assessment workflow |
-| Socrative | Quizzes, polls, exit tickets | Not publicly disclosed | Freemium + Pro/enterprise | Millions of users | Fast, low-friction formative checks |
-| Formative | Real-time assessment and feedback | Not publicly disclosed | Freemium + paid school/district plans | Large district adoption | Immediate feedback and AI features |
-| Blooket | Game-based classroom practice | Not publicly disclosed | Freemium + Plus | Millions of educators | Fun game mechanics and social virality |
-| Quizalize | Quiz creation and classroom practice | Not publicly disclosed | Free + premium plans | 250k+ teachers, global reach | Clear teacher value and international reach |
+- `GET /datasets/{filename}`
+  - Get one extracted dataset JSON file from `data/extracted_questions/`
 
-## What Makes Them Successful
-- They reduce teacher setup time.
-- They keep the student experience lightweight.
-- They use freemium to drive adoption.
-- They support classroom workflows, not just content.
-- They benefit from network effects and reusable content.
+- `GET /saved-results`
+  - List saved table-parser datasets from `data/saved_results/manifest.json`
 
-## Project Niche
-- Curriculum-specific question extraction from OCR/PDF text.
-- Structured JSON output with validation.
-- Local-first dataset registry.
-- Lesson-aware student mapping.
-- Better fit for internal teaching ops than generic quiz tools.
+- `GET /saved-results/{index}`
+  - Get saved result by manifest index, including metadata + row data
+
+## Data Model Overview
+
+### Extracted dataset JSON (`data/extracted_questions/*.json`)
+
+Root keys:
+- `topic`
+- `questions` (array)
+
+Per-question required fields:
+- `filename`
+- `question_number`
+- `topic`
+- `syllabus_codes`
+- `question_summary`
+- `physical_concepts`
+- `variables_involved`
+- `reasoning_focus`
+- `calculation_required`
+
+### Saved table-parser datasets (`data/saved_results/*.csv`)
+
+Typical columns:
+- `Test`
+- `Source`
+- `Parsed At`
+- `Question ID`
+- `Question`
+- `Main Chapter`
+- `Subchapter`
+- `Secondary Subchapters`
+- `Reasoning`
+
+## Notes
+
+- Legacy temp files existed as `README_temp.md` and `app_temp.py`; their functionality is integrated.
+- Historical draft notes remain in `notes.md`.
