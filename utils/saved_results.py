@@ -184,7 +184,7 @@ def add_metadata(df: pd.DataFrame, test_name: str, source_label: str) -> pd.Data
 
 
 def build_summary(df: pd.DataFrame) -> pd.DataFrame:
-    if df.empty:
+    if df.empty or "Main Chapter" not in df.columns:
         return pd.DataFrame(columns=["Main Chapter", "Questions", "Subchapters"])
 
     grouped = (

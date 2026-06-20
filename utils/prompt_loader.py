@@ -11,7 +11,9 @@ def list_prompts():
 
 def load_prompt(prompt_name: str) -> str:
     """Load prompt text by its stem name."""
-    path = PROMPT_DIR / f"{prompt_name}.txt"
+    # Sanitize input to prevent path traversal (extract only the file name)
+    safe_name = Path(prompt_name).name
+    path = PROMPT_DIR / f"{safe_name}.txt"
     if not path.exists():
         return ""
     return path.read_text(encoding="utf-8")

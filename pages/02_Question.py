@@ -20,10 +20,6 @@ def as_list(value):
     return value if isinstance(value, list) else []
 
 
-def codes_from_row(value):
-    return [code for code in as_list(value) if code]
-
-
 dataset_files = sorted(p.name for p in DATASET_DIR.glob("*.json"))
 if not dataset_files:
     st.error("No datasets found in data/extracted_questions/")
@@ -145,7 +141,9 @@ col_a, col_b = st.columns(2)
 with col_a:
     if "syllabus_codes" in df and not df.empty:
         syllabus_counts = (
-            df.explode("syllabus_codes")["syllabus_codes"]
+            df["syllabus_codes"]
+            .apply(as_list)
+            .explode()
             .dropna()
             .value_counts()
             .reset_index()
@@ -160,7 +158,9 @@ with col_a:
 with col_b:
     if "physical_concepts" in df and not df.empty:
         concept_counts = (
-            df.explode("physical_concepts")["physical_concepts"]
+            df["physical_concepts"]
+            .apply(as_list)
+            .explode()
             .dropna()
             .value_counts()
             .reset_index()

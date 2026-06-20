@@ -71,7 +71,7 @@ m1, m2, m3, m4 = st.columns(4)
 m1.metric("Datasets Loaded", len(loaded_files))
 m2.metric("Total Questions", len(df))
 m3.metric("Unique Topics", df["dataset_topic"].nunique())
-m4.metric("Calculation Questions", int(df["calculation_required"].sum()))
+m4.metric("Calculation Questions", int(df["calculation_required"].sum()) if "calculation_required" in df else 0)
 
 st.divider()
 st.subheader("🔎 Global Filters")
@@ -182,7 +182,9 @@ col_a, col_b, col_c = st.columns(3)
 with col_a:
     if "syllabus_codes" in df and not df.empty:
         syllabus_counts = (
-            df.explode("syllabus_codes")["syllabus_codes"]
+            df["syllabus_codes"]
+            .apply(as_list)
+            .explode()
             .dropna()
             .value_counts()
             .reset_index()
@@ -208,7 +210,9 @@ with col_b:
 with col_c:
     if "physical_concepts" in df and not df.empty:
         concept_counts = (
-            df.explode("physical_concepts")["physical_concepts"]
+            df["physical_concepts"]
+            .apply(as_list)
+            .explode()
             .dropna()
             .value_counts()
             .reset_index()

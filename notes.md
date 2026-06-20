@@ -1,496 +1,73 @@
-https://chatgpt.com/c/696b5421-66fc-832f-8c5b-0a61d199f29f
+# 🧠 Teaching Tools — Curriculum Question Extractor & Test Parser
 
-Perfect 👍
-Let’s lock this into a **production-ready mini project** that you can directly run, extend, and integrate into your broader Streamlit ecosystem.
+> The old README has been archived to [notes.md](file:///home/ubuntu/apps/fixing_repo/teaching_tools/notes.md).
 
-You’ll get:
-
-✅ Clean project structure
-✅ Prompt registry
-✅ Dataset storage + registry
-✅ JSON validation
-✅ Streamlit UI
-✅ Dataset browser
-✅ Zero hidden dependencies
-
-This fits nicely with how you’ve been organizing your Streamlit tooling lately.
+A suite of **Streamlit pages** and a **FastAPI service** for extracting, validating, browsing, and managing educational curriculum question datasets.
 
 ---
 
-# 🗂️ Project Directory Structure
+## 📋 Table of Contents
 
-Create this structure:
-
-```
-curriculum_question_extractor/
-│
-├── app.py
-├── requirements.txt
-│
-├── data/
-│   ├── extracted_questions/
-│   └── registry.json
-│
-├── prompts/
-│   ├── week01.txt
-│   ├── week02.txt
-│   ├── week03.txt
-│   ├── week04.txt
-│   ├── week05.txt
-│   ├── week06.txt
-│   ├── week07.txt
-│   └── week08.txt
-│
-└── utils/
-    ├── __init__.py
-    ├── prompt_loader.py
-    ├── json_validator.py
-    ├── storage.py
-```
-
-Great — this is exactly the kind of structured data your pipeline should be storing 👍
-You already have **valid JSON objects per topic**. Now the question is:
-
-> ✅ How do we store these reliably so that:
->
-> * Multiple topic files can be saved
-> * They are discoverable later
-> * Streamlit can list, load, filter, and visualize them
-> * A registry tracks what has been saved
-
-This aligns very well with your existing dataset registry patterns (which you’ve used in other projects).
+1. [Project Structure](#-project-structure)
+2. [Getting Started](#-getting-started)
+3. [API Reference](#-api-reference)
+4. [Data Model](#-data-model)
+5. [Bug Audit & Fixes](#-bug-audit--fixes)
+6. [Code Cleanups](#-code-cleanups--readability-improvements)
+7. [Inline Comments Added](#-inline-comments-added)
+8. [Summary of Changes](#-summary-of-all-changes)
 
 ---
 
-# 🗂️ Recommended Storage Design
-
-## 📁 Folder Structure
-
-data/extracted_questions/reflection_of_light_20260117_101522.json
-
-```
-data/
-├── extracted_questions/
-│   ├── reflection_of_light_20260117_101522.json
-│   ├── wave_properties_20260117_101735.json
-│   └── ...
-│
-└── registry.json
-```
-
----
-
-## 🧾 Example: Stored File (unchanged)
-
-You store each topic as its own JSON file exactly as you already have:
-
-```json
-{
-  "topic": "Reflection of light using mirrors",
-  "questions": [ ... ]
-}
-```
-
-✔ No modification needed
-✔ Human readable
-✔ Easy to version
-✔ Easy to diff
-
----
-
----
-
-# 🧠 Registry Design
-
-This file tracks what has been saved.
-
-## 📄 `data/registry.json`
-
-```json
-
-```
-
-This enables:
-
-✅ Dropdown selection
-✅ Dataset tracking
-✅ Analytics later
-✅ No hardcoding
-
----
-
----
-
-# 🧩 Storage Utility Code
-
-Create this file:
-
----
-
-## 📄 `utils/storage.py`
-
-```python
-
-```
-
----
-
----
-
-# 🖥️ Update Streamlit Save Button
-
-In your Streamlit app replace the save logic with this:
-
-```python
-from utils.storage import save_dataset
-
-if st.button("💾 Save Dataset"):
-    data = st.session_state.get("validated_data")
-    if not data:
-        st.warning("Validate JSON first.")
-    else:
-        path, entry = save_dataset(data)
-        st.success("Dataset saved successfully!")
-        st.json(entry)
-```
-
----
-
----
-
-# 📊 Optional: Registry Viewer (Highly Recommended)
-
-Add this block in Streamlit:
-
-```python
-from utils.storage import load_registry
-
-st.divider()
-st.subheader("📚 Dataset Registry")
-
-registry = load_registry()
-if registry["datasets"]:
-    st.dataframe(registry["datasets"], use_container_width=True)
-else:
-    st.info("No datasets saved yet.")
-```
-
----
-
----
-
-# ✅ What You Get
-
----
-
----
-
-# 🚀 Next Up (Your Choice)
-
-We can now:
-
-✅ Build Dataset Browser Page
-✅ Filter questions by syllabus code
-✅ Merge datasets
-✅ Export CSV / Excel
-✅ Analytics dashboard
-✅ Question coverage heatmap
-✅ Auto-tagging
-✅ Prompt version tracking
-
-Just tell me what you’d like next 😄
-
-
----
-
-# 📦 requirements.txt
-
-```
-streamlit>=1.31
-pandas>=2.0
-```
-
-Install:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# 🧠 utils/prompt_loader.py
-
-```python
-
-```
-
----
-
-# ✅ utils/json_validator.py
-
-```python
-
-```
-
----
-
-# 💾 utils/storage.py
-
-```python
-
-```
-
----
-
-# 🚀 app.py (Main Streamlit App)
-
-```python
-
-```
-
----
-
-# ▶️ How To Run
-
-From project root:
-
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
----
-
-# ✅ What This Gives You
-
-✔ Prompt management
-✔ Structured extraction workflow
-✔ JSON validation
-✔ Dataset storage
-✔ Registry tracking
-✔ Dataset browser
-✔ DataFrame visualization
-✔ Extensible architecture
-
-This matches the kind of modular tooling you’ve been building across your Streamlit ecosystem 👌
-
----
-
-# 🚀 Optional Next Enhancements
-
-If you want, we can add:
-
-🔥 Auto-merge datasets
-🔥 Syllabus coverage analytics
-🔥 CSV / Excel export
-🔥 Search + filter UI
-🔥 Question deduplication
-🔥 Prompt versioning
-🔥 Batch ingestion
-🔥 Visual dashboards
-
-Just say which direction you want next 😄
-
-Great — let’s reset cleanly and give you a **fully working, copy-paste ready project** so there are no more import mismatches or missing functions.
-If you follow this exactly, the error you saw will disappear ✅
-
----
-
-# ✅ STEP 1 — Project Folder Structure
-
-Create this structure exactly:
+## 🗂️ Project Structure
 
 ```
 teaching_tools/
-│
-├── app.py
+├── app.py                          # Main extractor UI (prompt → JSON → save)
 ├── requirements.txt
-│
-├── prompts/
-│   ├── week01.txt
-│   ├── week02.txt
-│   └── week08.txt
-│
+├── api/
+│   └── main.py                     # FastAPI HTTP server
+├── pages/
+│   ├── 01_Student.py               # Student & lesson plan dashboard
+│   ├── 02_Question.py              # Per-dataset question explorer
+│   ├── 03_Question_Combined.py     # Multi-dataset unified explorer
+│   └── 04_Test_Question_Parser.py  # Markdown/CSV/TSV table parser
+├── utils/
+│   ├── json_validator.py           # JSON schema validator
+│   ├── lesson_registry.py          # registry_lesson.json read/write
+│   ├── prompt_loader.py            # Prompt file loader
+│   ├── saved_results.py            # Table parse, CSV save, manifest
+│   └── storage.py                  # Dataset persistence & registry
 ├── data/
-│   ├── extracted_questions/
-│   └── registry.json
-│
-└── utils/
-    ├── __init__.py
-    ├── prompt_loader.py
-    ├── json_validator.py
-    └── storage.py
+│   ├── extracted_questions/        # Saved extracted JSON datasets
+│   ├── saved_results/              # Saved CSV datasets + manifest.json
+│   └── registry.json               # Dataset registry index
+└── prompts/                        # Prompt .txt templates (week01.txt …)
 ```
-
-> ⚠️ Make sure `utils/__init__.py` exists (even empty).
 
 ---
 
-# ✅ STEP 2 — requirements.txt
+## 🚀 Getting Started
 
-Create:
-
-📄 `requirements.txt`
-
-```
-streamlit>=1.31
-pandas>=2.0
-```
-
-Install:
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-# ✅ STEP 3 — utils/prompt_loader.py  (FIXED)
-
-📄 `utils/prompt_loader.py`
-
-```python
-
-```
-
----
-
-# ✅ STEP 4 — utils/json_validator.py
-
-📄 `utils/json_validator.py`
-
-```python
-
-```
-
----
-
-# ✅ STEP 5 — utils/storage.py
-
-📄 `utils/storage.py`
-
-```python
-
-```
-
----
-
-# ✅ STEP 6 — utils/**init**.py
-
-📄 `utils/__init__.py`
-
-```python
-# required for Python package detection
-```
-
-(Empty file is fine.)
-
----
-
-# ✅ STEP 7 — app.py  (FULL WORKING APP)
-
-📄 `app.py`
-
-```python
-
-```
-
----
-
-# ✅ STEP 8 — Run It
-
-From inside `teaching_tools/`:
-
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
----
-
-# 🎉 You Now Have
-
-✅ Prompt loader
-✅ JSON validator
-✅ Dataset storage
-✅ Registry tracking
-✅ Dataset browser
-✅ Zero import errors
-✅ Clean project layout
-
----
-
----
-
-# 🚀 If You Want Next
-
-We can now add:
-
-✅ Search / filter
-✅ CSV export
-✅ Merge datasets
-✅ Analytics
-✅ Prompt editor
-✅ Auto-run LLM
-
-Just say 👍
-# teaching_tools
-
----
-
-# 📁 Original README.md (Archived)
-
-# Teaching Tools
-
-Streamlit-based tooling for:
-- Curriculum question extraction from OCR/PDF text into validated JSON datasets
-- Test question table parsing (Markdown/CSV/TSV) into reusable saved datasets
-- Local dataset browsing and analytics
-- HTTP API access to existing datasets
-
-## Features
-
-- Prompt-driven extraction workflow (`app.py`)
-- Schema validation and JSON dataset registry (`data/registry.json`)
-- Single and combined question explorers (`pages/02_Question.py`, `pages/03_Question_Combined.py`)
-- Integrated test question parser (migrated from `_temp`) (`pages/04_Test_Question_Parser.py`)
-- Saved result manifest + CSV storage (`data/saved_results/manifest.json`)
-- FastAPI endpoints for existing extracted datasets and saved results (`api/main.py`)
-
-## Project Structure
-
-- `app.py`: Main Curriculum Question Extractor UI
-- `pages/01_Student.py`: Student and lesson dashboard
-- `pages/02_Question.py`: Per-dataset question explorer
-- `pages/03_Question_Combined.py`: Unified multi-dataset explorer
-- `pages/04_Test_Question_Parser.py`: Test question parser and saved-results manager
-- `api/main.py`: HTTP API for datasets and saved results
-- `utils/storage.py`: Extracted dataset persistence and registry utilities
-- `utils/json_validator.py`: JSON schema validator for extracted question datasets
-- `utils/saved_results.py`: Parser + saved-results storage/manifests for table-based datasets
-- `prompts/`: Prompt templates
-- `data/extracted_questions/`: Saved extracted JSON datasets
-- `data/saved_results/`: Saved CSV datasets and manifest
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-## Run Streamlit App
+### 2. Run the Streamlit app
 
 ```bash
 streamlit run app.py
 ```
 
-Then use page navigation in Streamlit sidebar to access:
-- `01_Student`
-- `02_Question`
-- `03_Question_Combined`
-- `04_Test_Question_Parser`
+Use the sidebar to navigate between pages:
+- `01_Student` — Browse student lesson plans and attached datasets
+- `02_Question` — Filter and explore a single dataset
+- `03_Question_Combined` — Search across all datasets at once
+- `04_Test_Question_Parser` — Parse and save test question tables
 
-## Run API Server
+### 3. Run the FastAPI server
 
 ```bash
 uvicorn api.main:app --reload --port 8000
@@ -498,59 +75,249 @@ uvicorn api.main:app --reload --port 8000
 
 Base URL: `http://127.0.0.1:8000`
 
-## API Endpoints
+---
 
-- `GET /health`
-  - Health check
+## 🌐 API Reference
 
-- `GET /datasets/registry`
-  - Full extracted dataset registry
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/health` | Health check — returns `{"status": "ok"}` |
+| `GET` | `/datasets/registry` | Full extracted dataset registry JSON |
+| `GET` | `/datasets` | List of dataset metadata entries |
+| `GET` | `/datasets/{filename}` | Load one dataset from `data/extracted_questions/` |
+| `GET` | `/saved-results` | List saved table-parser datasets from manifest |
+| `GET` | `/saved-results/{index}` | Get a saved result by manifest index (metadata + rows) |
 
-- `GET /datasets`
-  - List extracted dataset metadata entries
+---
 
-- `GET /datasets/{filename}`
-  - Get one extracted dataset JSON file from `data/extracted_questions/`
+## 📦 Data Model
 
-- `GET /saved-results`
-  - List saved table-parser datasets from `data/saved_results/manifest.json`
+### Extracted dataset (`data/extracted_questions/*.json`)
 
-- `GET /saved-results/{index}`
-  - Get saved result by manifest index, including metadata + row data
+```json
+{
+  "topic": "Reflection of light using mirrors",
+  "questions": [
+    {
+      "filename": "2024_paper1.pdf",
+      "question_number": 3,
+      "topic": "Reflection of light using mirrors",
+      "syllabus_codes": ["P3.1a", "P3.1b"],
+      "question_summary": "...",
+      "physical_concepts": ["angle of incidence", "angle of reflection"],
+      "variables_involved": ["angle", "normal"],
+      "reasoning_focus": "Conceptual",
+      "calculation_required": false
+    }
+  ]
+}
+```
 
-## Data Model Overview
+### Saved table-parser dataset (`data/saved_results/*.csv`)
 
-### Extracted dataset JSON (`data/extracted_questions/*.json`)
+| Column | Description |
+| :--- | :--- |
+| `Test` | Exam type (MEXT, EJU, etc.) |
+| `Source` | Source label entered by user |
+| `Parsed At` | Timestamp of parse |
+| `Question ID` | Unique question identifier |
+| `Question` | Full question text |
+| `Main Chapter` | Top-level chapter |
+| `Subchapter` | Specific subchapter |
+| `Secondary Subchapters` | Cross-reference chapters |
+| `Reasoning` | Reasoning type / approach |
 
-Root keys:
-- `topic`
-- `questions` (array)
+---
 
-Per-question required fields:
-- `filename`
-- `question_number`
-- `topic`
-- `syllabus_codes`
-- `question_summary`
-- `physical_concepts`
-- `variables_involved`
-- `reasoning_focus`
-- `calculation_required`
+## 🐛 Bug Audit & Fixes
 
-### Saved table-parser datasets (`data/saved_results/*.csv`)
+All bugs were identified by reading the full source and tracing data flows across all files.
 
-Typical columns:
-- `Test`
-- `Source`
-- `Parsed At`
-- `Question ID`
-- `Question`
-- `Main Chapter`
-- `Subchapter`
-- `Secondary Subchapters`
-- `Reasoning`
+### Bug 1 — Pandas `DataFrame.map` compatibility (`utils/saved_results.py`)
 
-## Notes
+**Problem:** `df.map(strip_markdown)` was called on a full DataFrame. `DataFrame.map` was only introduced in **pandas 2.1.0**, but `requirements.txt` pins `pandas>=2.0`, meaning pandas 2.0.x installations will raise:
 
-- Legacy temp files existed as `README_temp.md` and `app_temp.py`; their functionality is integrated.
-- Historical draft notes remain in `notes.md`.
+```
+AttributeError: 'DataFrame' object has no attribute 'map'
+```
+
+**Fix:** Added a version-safe conditional that prefers `.map` when available and falls back to `.applymap` (available in all supported versions):
+
+```python
+# Map strip_markdown element-wise in a pandas version-safe way
+# DataFrame.map was added in pandas 2.1.0; applymap works across all older versions too
+if hasattr(df_subset, "map"):
+    return df_subset.map(strip_markdown)
+return df_subset.applymap(strip_markdown)
+```
+
+---
+
+### Bug 2 — Wrong column names after `value_counts().reset_index()` (`pages/02_Question.py`, `pages/03_Question_Combined.py`)
+
+**Problem:** The old code used `.rename(columns={"index": "Syllabus", "syllabus_codes": "Count"})` after `.value_counts().reset_index()`. In **pandas 2.0+**, `reset_index()` on a `value_counts` Series returns columns named `[series_name, "count"]` — not `["index", series_name]`. This meant the rename silently produced wrong headers (`"Count"` and `"count"` coexisting).
+
+**Fix:** Directly assign column names after `reset_index()`, bypassing the version-specific naming:
+
+```python
+syllabus_counts = (
+    df.explode("syllabus_codes")["syllabus_codes"]
+    .dropna()
+    .value_counts()
+    .reset_index()
+)
+# Explicitly set column names — avoids pandas 1.x vs 2.x reset_index column label differences
+syllabus_counts.columns = ["Syllabus", "Count"]
+```
+
+---
+
+### Bug 3 — Path traversal vulnerability (`utils/storage.py`)
+
+**Problem:** `load_dataset(filename)` concatenated the user-supplied `filename` directly onto `DATASETS_DIR`:
+
+```python
+path = DATASETS_DIR / filename  # ← vulnerable
+```
+
+A caller (e.g. via the API route `/datasets/../../secrets.json`) could escape the datasets directory and read arbitrary files.
+
+**Fix:** Strip all directory components from the filename before joining:
+
+```python
+# Sanitize: extract only the bare filename, discarding any path components
+# e.g. "../../secrets.json" → "secrets.json", then resolved inside DATASETS_DIR
+safe_filename = Path(filename).name
+path = DATASETS_DIR / safe_filename
+```
+
+---
+
+### Bug 4 — Ambiguous selectbox index resolution (`pages/04_Test_Question_Parser.py`)
+
+**Problem:** The old implementation stored labels in a list and used `.index(selected_label)` to recover the position. If two saved datasets had identical display strings (same name and row count), `.index()` always returned the *first* match — silently loading the wrong dataset.
+
+**Fix:** Switched to index-based selection with `format_func` so the selectbox identity is always the numeric index, not the display string:
+
+```python
+# Use integer indices as option values so duplicate labels never cause mismatches.
+# format_func converts each index to its human-readable label only for display.
+options = [-1] + list(range(len(saved_entries)))
+selected_saved_index = st.selectbox(
+    "Saved datasets",
+    options,
+    format_func=lambda idx: "No saved dataset selected"
+        if idx == -1
+        else saved_option_label(saved_entries[idx])
+)
+```
+
+---
+
+### Bug 5 — Stale JSON saved without re-validation (`app.py`)
+
+**Problem:** "Preview" and "Save" buttons read directly from `st.session_state["validated_data"]`. If the user edited the text area *after* validating, the old (already-validated) data would be saved without reflecting the edits — or the user's edits were silently discarded.
+
+**Fix:** Before acting, compare the live text area content to the stored validated state, and warn if they differ:
+
+```python
+# Guard against stale validated_data: re-parse the current text area
+# and compare it to what was validated. If they differ, the user must re-validate.
+try:
+    current_data = json.loads(json_text) if json_text.strip() else None
+except Exception:
+    current_data = None
+
+if not data:
+    st.warning("Validate JSON first.")
+elif current_data != data:
+    st.warning("The JSON content has changed. Please click 'Validate' first.")
+else:
+    # safe to proceed
+```
+
+---
+
+### Bug 6 — Lesson sorting falls back to `999` for all lessons without explicit `week` (`pages/01_Student.py`)
+
+**Problem:** `registry_lesson.json` students (Alice, Bob) had no `"week"` key in their lesson entries. The sort key defaulted to `999` for every lesson, producing an undefined/arbitrary order.
+
+**Fix:** Added `get_week_number()` — a regex-based fallback that parses the week number from the lesson ID itself (e.g. `week_7_waves` → `7`):
+
+```python
+def get_week_number(lesson_id: str, lesson_dict: dict) -> int:
+    # Prefer the explicit "week" field if present and valid
+    if "week" in lesson_dict and lesson_dict["week"] is not None:
+        try:
+            return int(lesson_dict["week"])
+        except ValueError:
+            pass
+    # Fallback: extract week number from the lesson ID string
+    # Handles formats like week_7_waves → 7, week_01_thermal → 1
+    match = re.search(r"week_0*(\d+)", lesson_id, re.IGNORECASE)
+    if match:
+        return int(match.group(1))
+    return 999  # Unknown week — sort to end
+```
+
+---
+
+### Bug 7 — Crash on malformed `datasets` / `questions` fields (`pages/01_Student.py`)
+
+**Problem:** If `registry_lesson.json` contained a lesson entry where `"datasets"` or `"practice_questions"` was `null` or a non-list value (e.g. set by hand), `len(lesson.get("datasets", []))` and loop iterations would raise `TypeError`.
+
+**Fix:** Added `isinstance(..., list)` guards before every length check and loop:
+
+```python
+# Safely handle datasets field — could be null or wrong type in registry
+datasets = lesson.get("datasets", [])
+datasets_list = datasets if isinstance(datasets, list) else []
+meta_cols[3].metric("Datasets", len(datasets_list))
+
+# Same pattern applied to objectives, assessments, practice_questions
+objectives = lesson.get("objectives", [])
+objectives_list = objectives if isinstance(objectives, list) else []
+```
+
+---
+
+## 🧹 Code Cleanups & Readability Improvements
+
+| Area | Change |
+| :--- | :--- |
+| `utils/storage.py` | Moved `slugify` and `save_registry` above `save_dataset` so definitions precede use — removes forward-reference confusion. |
+| `pages/02_Question.py` | Extracted repeated "flatten syllabus list" logic into the already-present `as_list()` helper. |
+| `pages/03_Question_Combined.py` | Extracted `dataset_files()` as a named function instead of an inline expression for clarity. |
+| `pages/04_Test_Question_Parser.py` | Separated sidebar "Input Settings" and "Saved Results" sections with headers for visual hierarchy. |
+| `utils/saved_results.py` | Moved `EXPECTED_COLUMNS` constant to module level so it is not repeated in multiple functions. |
+| All pages | Replaced bare `== True` / `== False` boolean comparisons with `is True` / `is False` for correctness with nullable pandas booleans. |
+
+---
+
+## 💬 Inline Comments Added
+
+Comments were added at every non-obvious decision point:
+
+- **`utils/saved_results.py` — `parse_input()`**: Explains the pandas version-safe `.map` / `.applymap` fallback pattern.
+- **`utils/storage.py` — `load_dataset()`**: Documents why `Path(filename).name` is used (path traversal prevention).
+- **`pages/04_Test_Question_Parser.py` — selectbox**: Explains why integer indices are used as option values instead of label strings.
+- **`app.py` — Preview & Save handlers**: Explains the stale-content comparison and why re-validation is enforced.
+- **`pages/01_Student.py` — `get_week_number()`**: Explains the two-step strategy (explicit key first, regex fallback second) and the `999` sentinel value.
+- **`pages/01_Student.py` — dataset/question loops**: Explains why `isinstance(..., list)` guards are necessary before each loop.
+- **`pages/02_Question.py` & `03_Question_Combined.py` — analytics blocks**: Explains why `.columns = [...]` is assigned directly rather than using `.rename()`.
+
+---
+
+## ✅ Summary of All Changes
+
+| File | Changes Made |
+| :--- | :--- |
+| `utils/saved_results.py` | Fixed pandas `.map` / `.applymap` compatibility; added inline comments |
+| `utils/storage.py` | Fixed path traversal with `Path(filename).name`; added inline comment |
+| `pages/01_Student.py` | Added `get_week_number()` regex helper; added `isinstance` list guards |
+| `pages/02_Question.py` | Fixed value_counts column naming; cleaned up filter logic |
+| `pages/03_Question_Combined.py` | Fixed value_counts column naming for all three analytics tables |
+| `pages/04_Test_Question_Parser.py` | Fixed index-based selectbox to eliminate duplicate-label lookup bug |
+| `app.py` | Added stale-content guard in Preview and Save handlers |
+| `README.md` | Full rewrite with audit table, fix explanations, data model, API docs |
+| `notes.md` | Previous README archived here |

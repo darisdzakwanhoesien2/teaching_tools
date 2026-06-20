@@ -109,10 +109,12 @@ with tab_data:
     )
 
 with tab_summary:
-    st.dataframe(build_summary(filled_df), width="stretch", hide_index=True)
+    # Use the user-edited dataframe so the summary reflects in-editor changes
+    summary_src = edited_df[edited_df["Question ID"].astype(str).str.strip() != ""] if not edited_df.empty else filled_df
+    st.dataframe(build_summary(summary_src), width="stretch", hide_index=True)
 
-    if not filled_df.empty:
-        st.bar_chart(filled_df["Main Chapter"].value_counts())
+    if not summary_src.empty:
+        st.bar_chart(summary_src["Main Chapter"].value_counts())
 
 with tab_export:
     default_save_name = source_label.strip() or f"{test_name or 'test'} question mapping"
