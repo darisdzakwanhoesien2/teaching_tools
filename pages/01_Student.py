@@ -68,32 +68,53 @@ if not lessons:
     st.warning("This student has no lessons.")
     st.stop()
 
-# Sort lessons by week if available
+# Sort lessons by week if available, fallback to extracting it from the lesson ID
+def get_week_number(lesson_id: str, lesson_dict: dict) -> int:
+    import re
+    if "week" in lesson_dict and lesson_dict["week"] is not None:
+        try:
+            return int(lesson_dict["week"])
+        except ValueError:
+            pass
+    # Extract week number from ID (e.g. week_7_waves -> 7, week_01_thermal -> 1)
+    match = re.search(r"week_0*(\d+)", lesson_id, re.IGNORECASE)
+    if match:
+        return int(match.group(1))
+    return 999
+
 def lesson_sort_key(item):
-    return item[1].get("week", 999)
+    return get_week_number(item[0], item[1])
 
 sorted_lessons = sorted(lessons.items(), key=lesson_sort_key)
 
 for lesson_id, lesson in sorted_lessons:
-    with st.expander(f"📘 Week {lesson.get('week','?')} — {lesson.get('title')}"):
+    week_num = get_week_number(lesson_id, lesson)
+    week_str = str(week_num) if week_num != 999 else "?"
+    
+    with st.expander(f"📘 Week {week_str} — {lesson.get('title', 'Untitled Lesson')}"):
 
         # -----------------------------
         # Lesson Metadata
         # -----------------------------
         meta_cols = st.columns(4)
 
-        meta_cols[0].metric("Week", lesson.get("week", "—"))
+        meta_cols[0].metric("Week", week_str if week_str != "?" else "—")
         meta_cols[1].metric("Date Range", lesson.get("date_range", "—"))
         meta_cols[2].metric("Syllabus", lesson.get("syllabus", "—"))
-        meta_cols[3].metric("Datasets", len(lesson.get("datasets", [])))
+        
+        # Ensure datasets is a valid list to prevent metric crash
+        datasets = lesson.get("datasets", [])
+        datasets_list = datasets if isinstance(datasets, list) else []
+        meta_cols[3].metric("Datasets", len(datasets_list))
 
         # -----------------------------
         # Objectives
         # -----------------------------
         st.markdown("### 🎯 Objectives")
         objectives = lesson.get("objectives", [])
-        if objectives:
-            for obj in objectives:
+        objectives_list = objectives if isinstance(objectives, list) else []
+        if objectives_list:
+            for obj in objectives_list:
                 st.write("•", obj)
         else:
             st.info("No objectives recorded.")
@@ -103,8 +124,9 @@ for lesson_id, lesson in sorted_lessons:
         # -----------------------------
         st.markdown("### 📝 Assessments")
         assessments = lesson.get("assessments", [])
-        if assessments:
-            for a in assessments:
+        assessments_list = assessments if isinstance(assessments, list) else []
+        if assessments_list:
+            for a in assessments_list:
                 st.write("•", a)
         else:
             st.info("No assessments.")
@@ -114,8 +136,9 @@ for lesson_id, lesson in sorted_lessons:
         # -----------------------------
         st.markdown("### ❓ Practice Questions")
         questions = lesson.get("practice_questions", [])
-        if questions:
-            for q in questions:
+        questions_list = questions if isinstance(questions, list) else []
+        if questions_list:
+            for q in questions_list:
                 st.write("•", q)
         else:
             st.info("No practice questions.")
@@ -125,19 +148,21 @@ for lesson_id, lesson in sorted_lessons:
         # -----------------------------
         st.markdown("### 📦 Attached Datasets")
 
-        datasets = lesson.get("datasets", [])
-
-        if not datasets:
+        if not datasets_list:
             st.warning("No datasets attached to this lesson yet.")
         else:
-            for dataset_file in datasets:
+            for dataset_file in datasets_list:
                 st.write(f"📄 {dataset_file}")
 
                 dataset = load_dataset(dataset_file)
 
                 if dataset:
                     st.caption(f"Topic: {dataset.get('topic')}")
-                    questions_df = pd.DataFrame(dataset.get("questions", []))
+                    
+                    # Ensure dataset['questions'] is a list to prevent DataFrame crash
+                    raw_questions = dataset.get("questions", [])
+                    dataset_questions_list = raw_questions if isinstance(raw_questions, list) else []
+                    questions_df = pd.DataFrame(dataset_questions_list)
 
                     if not questions_df.empty:
                         st.dataframe(
@@ -146,7 +171,6 @@ for lesson_id, lesson in sorted_lessons:
                         )
                     else:
                         st.info("Dataset contains no questions.")
-
                 else:
                     st.error("Dataset file not found.")
 

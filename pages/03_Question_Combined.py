@@ -186,8 +186,9 @@ with col_a:
             .dropna()
             .value_counts()
             .reset_index()
-            .rename(columns={"index": "Syllabus", "syllabus_codes": "Count"})
         )
+        # Explicitly assign column names to be compatible across pandas 1.x and 2.x
+        syllabus_counts.columns = ["Syllabus", "Count"]
     else:
         syllabus_counts = pd.DataFrame(columns=["Syllabus", "Count"])
     st.write("### 📚 Syllabus Coverage")
@@ -198,8 +199,9 @@ with col_b:
         df["dataset_topic"]
         .value_counts()
         .reset_index()
-        .rename(columns={"index": "Topic", "dataset_topic": "Count"})
     )
+    # Explicitly assign column names to be compatible across pandas 1.x and 2.x
+    topic_counts.columns = ["Topic", "Count"]
     st.write("### 🧩 Topic Distribution")
     st.dataframe(topic_counts, use_container_width=True)
 
@@ -210,8 +212,9 @@ with col_c:
             .dropna()
             .value_counts()
             .reset_index()
-            .rename(columns={"index": "Concept", "physical_concepts": "Count"})
         )
+        # Explicitly assign column names to be compatible across pandas 1.x and 2.x
+        concept_counts.columns = ["Concept", "Count"]
     else:
         concept_counts = pd.DataFrame(columns=["Concept", "Count"])
     st.write("### 🧠 Concept Frequency")

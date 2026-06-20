@@ -38,9 +38,18 @@ with st.sidebar:
 
     st.header("Saved Results")
     saved_entries = load_manifest()
-    saved_labels = ["No saved dataset selected"] + [saved_option_label(entry) for entry in saved_entries]
-    selected_saved_label = st.selectbox("Saved datasets", saved_labels)
-    selected_saved_index = saved_labels.index(selected_saved_label) - 1
+    
+    if not saved_entries:
+        st.selectbox("Saved datasets", ["No saved datasets"], disabled=True)
+        selected_saved_index = -1
+    else:
+        # Avoid selectbox label duplicate bugs by selecting by index with a custom formatter
+        options = [-1] + list(range(len(saved_entries)))
+        selected_saved_index = st.selectbox(
+            "Saved datasets",
+            options,
+            format_func=lambda idx: "No saved dataset selected" if idx == -1 else saved_option_label(saved_entries[idx])
+        )
 
     if st.button("Load selected", disabled=selected_saved_index < 0):
         selected_entry = saved_entries[selected_saved_index]
@@ -131,12 +140,13 @@ with tab_saved:
         saved_df = pd.DataFrame(saved_entries)
         st.dataframe(saved_df, width="stretch", hide_index=True)
 
-        preview_label = st.selectbox(
+        preview_idx = st.selectbox(
             "Preview saved dataset",
-            [saved_option_label(entry) for entry in saved_entries],
+            range(len(saved_entries)),
+            format_func=lambda idx: saved_option_label(saved_entries[idx]),
             key="preview_saved_dataset",
         )
-        preview_entry = saved_entries[[saved_option_label(entry) for entry in saved_entries].index(preview_label)]
+        preview_entry = saved_entries[preview_idx]
         try:
             st.dataframe(load_saved_result(preview_entry), width="stretch", hide_index=True)
         except Exception as exc:

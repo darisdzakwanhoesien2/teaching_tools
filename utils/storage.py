@@ -71,7 +71,14 @@ def save_dataset(data: dict):
 
 
 def load_dataset(filename: str):
-    path = DATASETS_DIR / filename
+    """Load a single extracted JSON dataset by filename.
+    
+    Includes sanitization to prevent directory traversal exploits.
+    """
+    # Sanitize to prevent path traversal (extract only the file name)
+    safe_filename = Path(filename).name
+    path = DATASETS_DIR / safe_filename
+    
     if not path.exists():
         return None
 
@@ -80,3 +87,4 @@ def load_dataset(filename: str):
             return json.load(f)
     except (OSError, json.JSONDecodeError):
         return None
+

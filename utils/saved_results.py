@@ -167,7 +167,12 @@ def parse_input(raw_text: str, input_format: str) -> pd.DataFrame:
 
     df = normalize_columns(df)
     ordered_columns = EXPECTED_COLUMNS + [column for column in df.columns if column not in EXPECTED_COLUMNS]
-    return df[ordered_columns].map(strip_markdown)
+    
+    # Map strip_markdown element-wise in a pandas version-safe way (map was added in 2.1.0, applymap is older)
+    df_subset = df[ordered_columns]
+    if hasattr(df_subset, "map"):
+        return df_subset.map(strip_markdown)
+    return df_subset.applymap(strip_markdown)
 
 
 def add_metadata(df: pd.DataFrame, test_name: str, source_label: str) -> pd.DataFrame:

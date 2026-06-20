@@ -70,8 +70,17 @@ with col_a:
 with col_b:
     if st.button("👁 Preview"):
         data = st.session_state.get("validated_data")
+        
+        # Check if text area matches stored validated data to prevent stale preview
+        try:
+            current_data = json.loads(json_text) if json_text.strip() else None
+        except Exception:
+            current_data = None
+
         if not data:
             st.warning("Validate JSON first.")
+        elif current_data != data:
+            st.warning("The JSON content has changed or is invalid. Please click 'Validate' first.")
         else:
             st.json(data)
             questions_df = questions_to_frame(data)
@@ -83,8 +92,17 @@ with col_b:
 with col_c:
     if st.button("💾 Save"):
         data = st.session_state.get("validated_data")
+        
+        # Check if text area matches stored validated data to prevent saving stale data
+        try:
+            current_data = json.loads(json_text) if json_text.strip() else None
+        except Exception:
+            current_data = None
+
         if not data:
             st.warning("Validate JSON first.")
+        elif current_data != data:
+            st.warning("The JSON content has changed or is invalid. Please click 'Validate' first.")
         else:
             _, entry = save_dataset(data)
             st.success("Dataset saved successfully!")

@@ -149,8 +149,9 @@ with col_a:
             .dropna()
             .value_counts()
             .reset_index()
-            .rename(columns={"index": "Syllabus", "syllabus_codes": "Count"})
         )
+        # Explicitly set column names to support both pandas 1.x and 2.x reset_index behaviors
+        syllabus_counts.columns = ["Syllabus", "Count"]
     else:
         syllabus_counts = pd.DataFrame(columns=["Syllabus", "Count"])
     st.write("### 📚 Syllabus Coverage")
@@ -163,8 +164,9 @@ with col_b:
             .dropna()
             .value_counts()
             .reset_index()
-            .rename(columns={"index": "Concept", "physical_concepts": "Count"})
         )
+        # Explicitly set column names to support both pandas 1.x and 2.x reset_index behaviors
+        concept_counts.columns = ["Concept", "Count"]
     else:
         concept_counts = pd.DataFrame(columns=["Concept", "Count"])
     st.write("### 🧠 Physical Concept Frequency")
